@@ -1,0 +1,236 @@
+
+
+===========================================================
+
+Create VirtualHost Command :-
+
+sudo nano /etc/apache2/sites-available/downlineduplicator.dev.conf
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    ServerName downlineduplicator.dev
+    ServerAlias http://downlineduplicator.dev
+    DocumentRoot /var/www/html/downlineduplicator
+
+    <Directory /var/www/>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+
+sudo nano /etc/hosts
+
+127.0.0.1       downlineduplicator.dev           
+                           
+a2ensite downlineduplicator.dev         
+                           
+sudo systemctl restart apache2          
+                    
+sudo service apache2 restart    
+
+
+=================================================================
+
+Database installation command :- (user: ascure)
+
+mysql -h hostname -u username -p database_name < dump_file.sql  ( mysql -h localhost -u ascure -p database_name < dump_file.sql )
+
+===============================================================
+
+To see hidden files 
+
+Ctrl + h
+
+==============================================================
+
+Git Commands: 
+
+check ssh key on local machine (If there is already having ssh key on your local machine)
+
+ls -al ~/.ssh               // this command get all the key avaliable on local machine ( id_rsa (private) id_rsa.pub (public) )
+cat ~/.ssh/id_rsa.pub     // this command is used to get the key
+
+Now save the ssh key on github by: user profile >> settings >> SSH and GPG keys then add "New SSH key".
+
+Now you have to clone git on local machine
+
+git clone git@github.com:chiragjain-ascuretech/demo-repo.git  // git clone git@github.com:GITHUB_USERNAME/REPO_NAME.git
+
+git status // check status
+git add    // add files to git (to add all files "git add ." command is used )
+git commit -m "ENTER YOUR MSG" // save change to git
+git push origin main // push files in git
+
+git pull origin main // pull files from git
+
+sudo chmod -R 777 * // Give premission to directory and sub directory
+
+===============================================================================
+
+File and folder related commands
+
+create a file :- touch FILENAME.extension ( touch info.php )
+create new/ existing file need to open in file editor :- nano info.php
+
+open and save files
+
+> nano file_name
+> save file: Ctrl + O then enter
+> exit file: Ctrl + X
+
+Make Directory :- mkdir -m 777 assest
+
+xdg-open assest/text.jpg (xdg-open FolderName/FileName )    --- Open Folder or image
+
+mv -i assest/test.jpg assest/images/                        --- Move file from one directory to another
+mv file1.txt file2.txt file3.txt destination_directory/     --- For multiple files 
+
+unzip "Heal Our children.zip" -d "Heal"                     --- Unzip file to a folder
+
+tail -f /var/log/apache2/error.log                          --- display the last part of a file, useful for viewing log files in real-time.
+tail -n 20 /var/log/apache2/error.log                       --- the last 50 lines of a file
+
+zip zipfile.zip test.jpg test2.jpg                          --- create a zip file
+zip -r zipfile.zip directory                                --- To zip an entire directory, the -r option to recursively include all files and subdirectories.
+
+rm example.txt                                              --- remove files
+rm -r directory                                             --- To remove a directory and its contents recursively, use the -r option
+
+
+php -l example.php                                          --- Checks the syntax of the specified PHP file without executing it.
+
+
+===============================================================================================================================
+
+Download WordPress:
+
+sudo -i                                                     --- connect with sudo user
+cd /var/www/html                                            --- Navigate to Apache web root directory
+sudo wget -c https://wordpress.org/latest.tar.gz            --- Download the latest WordPress release
+sudo tar -xzvf latest.tar.gz                                --- Extract the downloaded file
+sudo chown -R www-data:www-data /var/www/html/wordpress     --- Change ownership of WordPress files to Apache user
+
+Now follow the VirtualHost commands
+
+=================================================================================================================
+
+Create laravel Project:
+
+>> composer create-project laravel/laravel project-name (laravel-yt-auth)
+
+Now go to the project by cd and project name, and run this command
+
+>> php artisan serve // Start the Development Server use this command
+
+Now Create database and connect database with the project ( Enter db details in .env file )
+
+
+Use migration command to run default migration
+>> php artisan migrate
+
+
+Now execute command for authetication implementation]
+>> composer require laravel/ui
+>> php artisan ui bootstrap --auth
+>> npm install
+>> npm run dev
+>> php artisan migrate
+
+Now install vite manifest
+>> npm install --save-dev vite laravel-vite-plugin
+
+check project.json file for this entry, if not exist then update it
+scripts: { "dev": "vite", "build": "vite-build" }
+
+>> npm run build
+
+Install composer command
+composer install/composer2 install
+
+https://askubuntu.com/questions/922267/the-apache2-configtest-failed-segmentation-fault-core-dumped
+
+
+======================================================================================================================
+
+List Available PHP Versions:
+>> update-alternatives --display php
+
+Switch Php Verison
+Select PHP Version, execute the command then select the number of the php
+>> sudo update-alternatives --config php
+
+Php switch command 
+>> sudo a2dismod php8.2
+>> sudo a2enmod php8.1
+>> sudo update-alternatives --set php /usr/bin/php8.1
+>> sudo systemctl restart apache2
+
+>> php -v
+
+Check apache services
+>> sudo systemctl start apache2.service
+
+Restart Web Server
+>> sudo systemctl restart apache2
+
+check project laravel version, go to directory
+>> php artisan --version
+
+check status of apache services
+sudo systemctl status apache2
+
+=======================================================================================================
+
+Install Composer commands
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-22-04
+
+=====================================================================================================
+
+Create controller in larvel
+php artisan make:controller Admin/AdminController
+
+Create Table in larvel
+php artisan make:migration create_admins_table
+
+Execute migration command
+php artisan migrate
+
+Create model command
+php artisan make:model admin
+
+Create seeder
+php artisan make:seeders AdminTableSeeder
+
+Clear caches command
+>> php artisan cache:clear 
+>> php artisan route:clear  
+>> php artisan config:clear
+>> php artisan view:clear 
+
+Generate Hash Password
+https://bcrypt-generator.com/
+
+To generate api key
+>> php artisan key:generate
+
+====================================================================
+
+git config core.fileMode false  
+
+1. study about oliver and how to creating order from oliver.
+2. create ftp and ssh
+3. create child theme
+4. create employee login template and make this functional
+5. create employee dashboard.
+6. Product item with itemmeta need to show (The orders have variations, for example, the 6 doughnuts, each doughnut has a flavor that is selected by the customer. This needs to be visible.)
+7. employee dashboard functionality working.
+
+
+
+
+
